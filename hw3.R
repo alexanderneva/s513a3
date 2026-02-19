@@ -1,3 +1,4 @@
+# Question 1
 # using the boot package
 library(boot)
 # making a normal sample
@@ -49,9 +50,12 @@ intervals <- function(x) {
   lines(rep(test[2], length(limsx)), limsx, lty = "dashed", col = 4)
   # basic
   limsx_b <- seq(test_b[1], test_b[2], len = 10)
-  lines(limsx_b, rep(0.25, length(limsx_b)),      lty = "dashed", col = 3)
-  lines(rep(test_b[1], length(limsx_b)), 0.25 + limsx, lty = "dashed", col = 3)
-  lines(rep(test_b[2], length(limsx_b)), 0.25 + limsx_b, lty = "dashed", col = 3)
+  lines(limsx_b, rep(0.25, length(limsx_b)),
+        lty = "dashed", col = 3)
+  lines(rep(test_b[1], length(limsx_b)), 0.25 + limsx,
+        lty = "dashed", col = 3)
+  lines(rep(test_b[2], length(limsx_b)), 0.25 + limsx_b,
+        lty = "dashed", col = 3)
   # percentile
   limsx_p <- seq(lims_p[1], lims_p[2], len = 10)
   lines(limsx_p, rep(0.5, length(limsx_p)),      lty = "dashed", col = 2)
@@ -63,9 +67,15 @@ intervals <- function(x) {
   n_miss <- cbind(ifelse(theta_hat_star < test[1], 1, 0),
                   ifelse(theta_hat_star > test[2], 1, 0))
   b_miss <- cbind(ifelse(theta_hat_star < test_b[1], 1, 0),
-		  ifelse(theta_hat_star > test_b[2], 1, 0))
-  cat("\nNumber of bootstrap points out on the normal ", apply(n_miss, 2, sum),
-      "\nNumber of bootstrap oints out on the basic ", apply(b_miss, 2, sum))
+                  ifelse(theta_hat_star > test_b[2], 1, 0))
+  p_miss <- cbind(ifelse(theta_hat_star < test_p[1], 1, 0),
+                  ifelse(theta_hat_star > test_p[2], 1, 0))
+  cat("\nProportion of bootstrap points out on the normal ",
+      1 / b * apply(n_miss, 2, sum),
+      "\nProportion of bootstrap points out on the basic ",
+      1 / b * apply(b_miss, 2, sum),
+      "\nProportion of bootstrap points out on the percentile ",
+      1 / b * apply(p_miss, 2, sum))
 }
 
 example <- function(x) {
