@@ -1,9 +1,10 @@
 library(boot)
 set.seed(23)
+cat("\n Loaded air conditioner data")
 head(aircondit)
 # using the diff function to generate the differences
 times <- diff(aircondit$hours)
-print(times)
+cat("\n Time differences: ", times)
 # the MLE of of lambda is the sample mean
 lambda_hat <-  1 / mean(times)
 # bootstrap trials
