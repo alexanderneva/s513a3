@@ -28,3 +28,7 @@ curve(y(x), col = 2, lwd = 2, add = TRUE)
 boot_se <- function(x) {
   # function that takes in a bootstrap sample and outputs its standard error
 }
+
+# question 3
+# defining out  1 / lambda
+data(aircondit, package = "boot")
