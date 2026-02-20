@@ -21,4 +21,6 @@ data <- problem(c(-1, 1),
                   u^2
                 }, 100)
 print(cor.test(x = data[, 1], y = data[, 2]))
-# part c
+# part c # p ~= 0.0005. Reject H_0 that X and Y are independent
+library(energy)
+print(dcov.test(x = data[, 1], y = data[, 2], R = 2000))
