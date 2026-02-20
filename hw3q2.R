@@ -13,9 +13,9 @@ for (i in 1:b) {
   x_star <- sample(times, length(times), replace = TRUE)
   lambda_hat_star[i] <-  1 / mean(x_star)
 }
-cat("The bias is given by ", lambda_hat - mean(lambda_hat_star),
+cat("The bias is given by ", mean(lambda_hat_star) - lambda_hat,
     " the difference between the emprical and bootstrapped mean\n",
-    " and the standard error is the sampl standard deviation of",
+    " and the standard error is the sample standard deviation of",
     " the bootstrap estimate", sd(lambda_hat_star), "\n")
 hist(lambda_hat_star, probability = TRUE,
      main = "Bootstrap density vs Exp(lambda_hat)")
@@ -24,11 +24,15 @@ y <- function(x) {
   dexp(x, 1 / lambda_hat)
 }
 curve(y(x), col = 2, lwd = 2, add = TRUE)
-
-boot_se <- function(x) {
-  # function that takes in a bootstrap sample and outputs its standard error
-}
-
+dev.off()
 # question 3
 # defining out  1 / lambda
-data(aircondit, package = "boot")
+times_i <- as.matrix(times)
+lambda_boot <- function(dat, ind) {
+  x <- times_i[ind, 1]
+  1 / mean(x)
+}
+boot_obj <- boot(times, statistic = lambda_boot, R = 2000)
+print(boot_obj)
+print(boot.ci(boot_obj,
+              type = c("basic", "norm", "perc")))
