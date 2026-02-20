@@ -2,9 +2,9 @@
 # using the boot package
 library(boot)
 # making a normal sample
+set.seed(23)
 n <- 100
 x <- rnorm(n)
-set.seed(23)
 # function to calculate alpha = 0.05 intervals
 
 intervals <- function(x) {
@@ -61,7 +61,7 @@ intervals <- function(x) {
   lines(limsx_p, rep(0.5, length(limsx_p)),      lty = "dashed", col = 2)
   lines(rep(test_p[1], length(limsx_p)), 0.5 + limsx_p, lty = "dashed", col = 2)
   lines(rep(test_p[2], length(limsx_p)), 0.5 + limsx_p, lty = "dashed", col = 2)
-  legend("topleft", c("normal", "basic", "percentile"), col = 1:3,
+  legend("topleft", c("normal", "basic", "percentile"), col = 4:2,
          lty = "dashed")
   # counting proportions on left an right of missed values for each interval
   n_miss <- cbind(ifelse(theta_hat_star < test[1], 1, 0),
